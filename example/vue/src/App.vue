@@ -4,3 +4,14 @@
     <input value="bla"/>
   </div>
 </template>
+
+<script setup>
+  import './coverage-test';
+
+  if (true){
+    console.log('run');
+  }
+  else {
+    console.log('not run');
+  }
+</script>

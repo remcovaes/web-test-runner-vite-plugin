@@ -16,8 +16,6 @@ describe('input field', () => {
     await type({ type: 'Hi!' });
     
     expect(input.value).to.equal('Hi!');
-    
-    await sleep(1000);
   });
 });
 

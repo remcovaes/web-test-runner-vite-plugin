@@ -24,9 +24,9 @@ export default {
   `,
   filterBrowserLogs: removeViteLogging,
   browsers: [
-      playwrightLauncher({ product: 'chromium', launchOptions: { slowMo: 300 } }),
-      playwrightLauncher({ product: 'firefox', launchOptions: { slowMo: 300 } }),
-      playwrightLauncher({ product: 'webkit', launchOptions: { slowMo: 300 } })
+      playwrightLauncher({ product: 'chromium', launchOptions: { slowMo: 0 } }),
+      // playwrightLauncher({ product: 'firefox', launchOptions: { slowMo: 300 } }),
+      // playwrightLauncher({ product: 'webkit', launchOptions: { slowMo: 300 } })
   ],
   testFramework: {
     config: {

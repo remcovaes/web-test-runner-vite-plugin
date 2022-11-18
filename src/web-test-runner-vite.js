@@ -1,6 +1,7 @@
 import { createServer } from 'vite';
 import { callWithFileNames } from './call-with-file-names.js';
 import { rewriteImport } from './rewrite-import.js';
+import { proxy } from './proxy.js';
 
 export const vitePlugin = () => {
 	let viteServer;
@@ -38,11 +39,8 @@ export const vitePlugin = () => {
 			
 			const vitePort = viteServer.config.server.port;
 			const viteProtocol = viteServer.config.server.https ? "https" : "http";
-			/* Redirect all traffic from the @web/dev-server to our own Vite
-			 * server. */
-			app.use(ctx => {
-				ctx.redirect(`${viteProtocol}://localhost:${vitePort}${ctx.originalUrl}`);
-			});
+
+			app.use(proxy(`${viteProtocol}://localhost:${vitePort}`));
 		},
 		
 		async serverStop() {

@@ -13,4 +13,5 @@ export default defineConfig({
 			'@vue/test-utils': 'node_modules/@vue/test-utils/dist/vue-test-utils.esm-browser.js',
 		}
 	}
+	
 })
