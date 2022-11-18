@@ -1,4 +1,4 @@
-# @Web/dev-server Vite plugin
+# @web/dev-server Vite plugin
 
 A [@web/test-runner] plugin that allows files to be built with Vite instead of [@web/dev-server].
 Inspired by [vite-web-test-runner].
