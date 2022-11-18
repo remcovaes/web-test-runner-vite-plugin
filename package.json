@@ -1,6 +1,6 @@
 {
   "name": "@remcovaes/web-test-runner-vite-plugin",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "@web/test-runner plugin to allow the build to be done by Vite",
   "type": "module",
   "main": "index.js",
