@@ -30,7 +30,7 @@ Use the following prop in the [@web/test-runner] to remove vite logging.
 import { removeViteLogging } from '@remcovaes/web-test-runner-vite-plugin';
 
 export default {
-    ...,
+	...,
 	filterBrowserLogs: removeViteLogging,
 };
 ```
