@@ -20,7 +20,7 @@ describe('input field', () => {
 });
 
 const setup = async () => {
-  render(App);
+  render(App, { slots: { default: 'bla' } });
   await sleep(100);
   
   const input = document.querySelector('input');
