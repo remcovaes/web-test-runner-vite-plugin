@@ -12,6 +12,7 @@ npm install @remcovaes/web-test-runner-vite-plugin --save-dev
 ## Examples
 Simple and no configuration:
 ```javascript
+// web-test-runner.config.js
 import { vitePlugin } from '@remcovaes/web-test-runner-vite-plugin';
 
 export default {
@@ -25,12 +26,13 @@ export default {
 Use the following prop in the [@web/test-runner] to remove vite logging.
 
 ```javascript
+// web-test-runner.config.js
 import { removeViteLogging } from '@remcovaes/web-test-runner-vite-plugin';
 
-{
-	...,
+export default {
+    ...,
 	filterBrowserLogs: removeViteLogging,
-}
+};
 ```
 
 Use a [vite config] to make the build more complex, see the examples.
