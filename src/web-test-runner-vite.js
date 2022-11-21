@@ -1,6 +1,9 @@
+import { existsSync } from 'node:fs';
+
 import { createServer } from 'vite';
+
 import { callWithFileNames } from './call-with-file-names.js';
-import { rewriteImport } from './rewrite-import.js';
+import { markExternal } from './mark-external.js';
 import { proxy } from './proxy.js';
 
 export const vitePlugin = () => {
@@ -9,23 +12,20 @@ export const vitePlugin = () => {
 	return {
 		name: "vite-plugin",
 		
-		async serverStart({ app, config, fileWatcher }) {
+		async serverStart({ app, fileWatcher }) {
 			const plugins = [
 				callWithFileNames(id => {
-					if (id.includes('plugin-vue')) {
-						return;
+					const file = id.split('?')[0];
+					if (!file.startsWith('\0') && existsSync(file)) {
+						fileWatcher.add(id);
 					}
-					
-					return fileWatcher.add(id);
 				}),
-				rewriteImport({
+				markExternal([
 					/* @web/test-runner-commands needs to establish a web-socket
 					 * connection. It expects a file to be served from the
-					 * @web/dev-server. Since we are taking control with a Vite
-					 * server, we need to redirect this one import to the
-					 * original @web/dev-server. */
-					'/__web-dev-server__web-socket.js': `http://localhost:${config.port}/__web-dev-server__web-socket.js`,
-				}),
+					 * @web/dev-server. So it should be ignored by Vite */
+					'/__web-dev-server__web-socket.js',
+				]),
 			];
 			
 			viteServer = await createServer({
@@ -39,7 +39,7 @@ export const vitePlugin = () => {
 			
 			const vitePort = viteServer.config.server.port;
 			const viteProtocol = viteServer.config.server.https ? "https" : "http";
-
+			
 			app.use(proxy(`${viteProtocol}://localhost:${vitePort}`));
 		},
 		
