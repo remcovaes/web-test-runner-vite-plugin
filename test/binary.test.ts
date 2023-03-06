@@ -5,8 +5,8 @@ describe('binary file', () => {
 		const { buffer } = await setup();
 		expect(buffer.byteLength).to.equal(8);
 		
-		for (let i = 0; i < 8; i++) {
-			expect(buffer[i]).to.equal(0xff);
+		for (const i of buffer) {
+			expect(i).to.equal(0xff);
 		}
 	});
 });

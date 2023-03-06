@@ -2,28 +2,21 @@ import http from 'node:http';
 
 const get = url => new Promise((resolve, reject) => {
 	const request = http.get(url, (response) => {
-		const strings = [];
 		const buffers = [];
 		let bufferLen = 0;
 
 		response.on('data', chunk => {
-			if (!Buffer.isBuffer(chunk)) {
-				strings.push(chunk);
-			} else if (chunk.length) {
-				bufferLen += chunk.length;
-				buffers.push(chunk);
-			}
+			bufferLen += chunk.length;
+			buffers.push(chunk);
 		});
 
-		response.on('end', () => {
-			resolve({
-				body: bufferLen ? Buffer.concat(buffers, bufferLen) : strings.join(''),
-				headers: response.headers,
-				status: response.statusCode
-			});
-		});
+		response.on('end', () => resolve({
+			body: Buffer.concat(buffers, bufferLen),
+			headers: response.headers,
+			status: response.statusCode,
+		}));
 	});
-
+	
 	request.on('error', (err) => reject(err))
 });
 
