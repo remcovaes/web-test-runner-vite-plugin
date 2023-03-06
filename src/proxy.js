@@ -16,15 +16,8 @@ const get = url => new Promise((resolve, reject) => {
 		});
 
 		response.on('end', () => {
-			let body;
-
-			if (bufferLen) {
-				body = Buffer.concat(buffers, bufferLen);
-			} else {
-				body = strings.join('');
-			}
 			resolve({
-				body,
+				body: bufferLen ? Buffer.concat(buffers, bufferLen) : strings.join(''),
 				headers: response.headers,
 				status: response.statusCode
 			});
