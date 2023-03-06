@@ -2,11 +2,16 @@ import http from 'node:http';
 
 const get = url => new Promise((resolve, reject) => {
 	const request = http.get(url, (response) => {
-		const body = [];
-		response.on('data', (chunk) => body.push(chunk));
-		
+		const buffers = [];
+		let bufferLen = 0;
+
+		response.on('data', chunk => {
+			bufferLen += chunk.length;
+			buffers.push(chunk);
+		});
+
 		response.on('end', () => resolve({
-			body: body.join(''),
+			body: Buffer.concat(buffers, bufferLen),
 			headers: response.headers,
 			status: response.statusCode,
 		}));
