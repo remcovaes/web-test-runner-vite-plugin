@@ -1,6 +1,6 @@
 import { existsSync } from 'node:fs';
 
-import { createServer, mergeConfig } from "vite";
+import { createServer, mergeConfig } from 'vite';
 
 import { callWithFileNames } from './call-with-file-names.js';
 import { markExternal } from './mark-external.js';
@@ -36,7 +36,7 @@ export const vitePlugin = (config = {}) => {
 					* restarts. */
 					server: { hmr: false },
 				})
-		    	);
+			);
 			await viteServer.listen();
 			
 			const vitePort = viteServer.config.server.port;
