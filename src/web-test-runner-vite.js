@@ -1,12 +1,15 @@
 import { existsSync } from 'node:fs';
 
-import { createServer } from 'vite';
+import { createServer, mergeConfig } from 'vite';
 
 import { callWithFileNames } from './call-with-file-names.js';
 import { markExternal } from './mark-external.js';
 import { proxy } from './proxy.js';
 
-export const vitePlugin = () => {
+/**
+ * @param config {import('vite').UserConfig}
+ */
+export const vitePlugin = (config = {}) => {
 	let viteServer;
 	
 	return {
@@ -28,13 +31,15 @@ export const vitePlugin = () => {
 				]),
 			];
 			
-			viteServer = await createServer({
-				clearScreen: false,
-				plugins,
-				/* Disable hmr in favor of the @web/test-runner to take care of
-				 * restarts. */
-				server: { hmr: false },
-			});
+			viteServer = await createServer(
+				mergeConfig(config, {
+					clearScreen: false,
+					plugins,
+					/* Disable hmr in favor of the @web/test-runner to take care of
+					* restarts. */
+					server: { hmr: false },
+				})
+			);
 			await viteServer.listen();
 			
 			const vitePort = viteServer.config.server.port;
