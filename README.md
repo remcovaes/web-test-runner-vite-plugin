@@ -41,3 +41,20 @@ Use a [vite config] to make the build more complex, see the examples.
 [@web/dev-server]: https://modern-web.dev/docs/dev-server/overview/
 [vite-web-test-runner]: https://github.com/material-svelte/vite-web-test-runner-plugin/
 [vite config]: https://vitejs.dev/config/
+
+Pass specific config to the vite dev server:
+```javascript
+// web-test-runner.config.js
+import { vitePlugin } from '@remcovaes/web-test-runner-vite-plugin';
+
+export default {
+	files: 'src/**/*.test.ts',
+	plugins: [
+		vitePlugin({
+            configFile: "/path/to/my/vite.config.ts",
+            root: '/path/to/my/project/root',
+			// ...
+        }),
+	],
+};
+```
