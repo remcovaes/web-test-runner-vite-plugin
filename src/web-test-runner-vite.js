@@ -6,6 +6,9 @@ import { callWithFileNames } from './call-with-file-names.js';
 import { markExternal } from './mark-external.js';
 import { proxy } from './proxy.js';
 
+/**
+ * @param config {import('vite').UserConfig}
+ */
 export const vitePlugin = (config = {}) => {
 	let viteServer;
 	
