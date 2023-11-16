@@ -1,4 +1,5 @@
 import { vitePlugin, removeViteLogging } from '@remcovaes/web-test-runner-vite-plugin';
+import { playwrightLauncher } from '@web/test-runner-playwright';
 
 export default {
   plugins: [
@@ -27,4 +28,7 @@ export default {
     </html>
   `,
   filterBrowserLogs: removeViteLogging,
+  browsers: [
+    playwrightLauncher({ product: 'chromium' })
+  ],
 };

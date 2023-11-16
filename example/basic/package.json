@@ -11,8 +11,8 @@
   "license": "UNLICENSED",
   "private": true,
   "devDependencies": {
-    "@remcovaes/web-test-runner-vite-plugin": "file:../..",
     "@open-wc/testing": "^3.1.7",
+    "@remcovaes/web-test-runner-vite-plugin": "file:../..",
     "@testing-library/vue": "^6.6.1",
     "@types/mocha": "^10.0.1",
     "@vitejs/plugin-vue": "^4.0.0",
