@@ -1,7 +1,9 @@
 import http from 'node:http';
+import https from 'node:https';
 
 const get = url => new Promise((resolve, reject) => {
-	const request = http.get(url, (response) => {
+	const getByProtocol = url.startsWith('https') ? https.get : http.get;
+	const request = getByProtocol(url, (response) => {
 		const buffers = [];
 		let bufferLen = 0;
 
