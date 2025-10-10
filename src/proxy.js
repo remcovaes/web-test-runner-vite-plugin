@@ -1,9 +1,9 @@
 import http from 'node:http';
 import https from 'node:https';
 
-const get = url => new Promise((resolve, reject) => {
+const get = (url, headers) => new Promise((resolve, reject) => {
 	const getByProtocol = url.startsWith('https') ? https.get : http.get;
-	const request = getByProtocol(url, (response) => {
+	const request = getByProtocol(url, { headers }, (response) => {
 		const buffers = [];
 		let bufferLen = 0;
 
@@ -30,7 +30,7 @@ const get = url => new Promise((resolve, reject) => {
  * @param {string} url
  */
 export const proxy = (url) => async ctx => {
-	const { body, headers, status } = await get(url + ctx.originalUrl);
+	const { body, headers, status } = await get(url + ctx.originalUrl, ctx.headers);
 	ctx.set(headers);
 	ctx.body = body;
 	ctx.status = status;
